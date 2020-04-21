@@ -7,20 +7,24 @@
     "eject": "rescripts eject"
   },
   "dependencies": {
-    "@material-ui/core": "^4.8.3",
-    "@material-ui/icons": "^4.5.1",
-    "namor": "^1.1.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "react-table": "latest"
+    "@material-ui/core": "^4.9.11",
+    "@material-ui/icons": "^4.9.1",
+    "@types/material-ui": "^0.21.7",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-table": "^7.0.16",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-scripts": "3.4.1",
+    "react-table": "7.0.4",
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
-    "@rescripts/cli": "^0.0.11",
-    "@rescripts/rescript-use-babel-config": "^0.0.8",
-    "@rescripts/rescript-use-eslint-config": "^0.0.9",
-    "babel-eslint": "10.0.1",
-    "eslint-config-prettier": "^6.3.0"
+    "@rescripts/cli": "^0.0.14",
+    "@rescripts/rescript-use-babel-config": "^0.0.10",
+    "@rescripts/rescript-use-eslint-config": "^0.0.11",
+    "babel-eslint": "10.1.0",
+    "eslint-config-prettier": "^6.10.1"
   },
   "browserslist": {
     "production": [
