@@ -1,20 +1,23 @@
 import React from 'react'
-
-import MaUTable from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
-import TableContainer from '@material-ui/core/TableContainer'
-import TableHead from '@material-ui/core/TableHead'
-import TableRow from '@material-ui/core/TableRow'
-import TableSortLabel from '@material-ui/core/TableSortLabel'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableSortLabel,
+} from '@material-ui/core';
 import {
   Column,
   useGlobalFilter,
   useSortBy,
   useTable,
-  UseGlobalFiltersInstanceProps, UseGlobalFiltersState, TableInstance,
+  UseGlobalFiltersInstanceProps,
+  UseGlobalFiltersState,
+  TableInstance,
 } from 'react-table'
-import TableToolbar from './TableToolbar'
+import { TableToolbar } from './TableToolbar'
 
 export type Point = {
   country: string;
@@ -30,7 +33,7 @@ type Props = {
   data: Point[],
 };
 
-const EnhancedTable = ({
+export const EnhancedTable = ({
   columns,
   data,
 }: Props) => {
@@ -38,9 +41,8 @@ const EnhancedTable = ({
     getTableProps,
     headerGroups,
     prepareRow,
-    preGlobalFilteredRows,
     setGlobalFilter,
-    state: { globalFilter },
+    state: {globalFilter},
     rows,
   } = useTable(
     {
@@ -54,17 +56,15 @@ const EnhancedTable = ({
         ...columns,
       ])
     }
-  ) as UseGlobalFiltersInstanceProps<any> & TableInstance<any> & { state: UseGlobalFiltersState<any>};
+  ) as UseGlobalFiltersInstanceProps<any> & TableInstance<any> & { state: UseGlobalFiltersState<any> };
 
-  // Render the UI for your table
   return (
     <TableContainer>
       <TableToolbar
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          setGlobalFilter={setGlobalFilter}
-          globalFilter={globalFilter}
+        setGlobalFilter={setGlobalFilter}
+        globalFilter={globalFilter}
       />
-      <MaUTable {...getTableProps()}>
+      <Table {...getTableProps()}>
         <TableHead>
           {headerGroups.map(headerGroup => (
             <TableRow {...headerGroup.getHeaderGroupProps()}>
@@ -72,16 +72,18 @@ const EnhancedTable = ({
                 <TableCell
                   {...(column.id === 'selection'
                     ? column.getHeaderProps()
-                    : column.getHeaderProps(column.getSortByToggleProps()))}
+                    : column.getHeaderProps({...column.getSortByToggleProps(), title: undefined}))}
                 >
-                  {column.render('Header')}
-                  {column.id !== 'selection' ? (
-                    <TableSortLabel
-                      active={column.isSorted}
-                      // react-table has a unsorted state which is not treated here
-                      direction={column.isSortedDesc ? 'desc' : 'asc'}
-                    />
-                  ) : null}
+                  <div style={{display: 'inline-flex'}}>
+                    {column.render('Header')}
+                    {column.id !== 'selection' ? (
+                      <TableSortLabel
+                        active={column.isSorted}
+                        // react-table has a unsorted state which is not treated here
+                        direction={column.isSortedDesc ? 'desc' : 'asc'}
+                      />
+                    ) : null}
+                  </div>
                 </TableCell>
               ))}
             </TableRow>
@@ -103,9 +105,7 @@ const EnhancedTable = ({
             )
           })}
         </TableBody>
-      </MaUTable>
+      </Table>
     </TableContainer>
   );
-}
-
-export default EnhancedTable
+};

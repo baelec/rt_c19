@@ -1,7 +1,7 @@
 import React from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
-import {IconButton, InputAdornment, TextField} from "@material-ui/core";
+import { IconButton, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   search: {
@@ -35,42 +35,35 @@ const useStyles = makeStyles(theme => ({
 }))
 
 type Props = {
-  preGlobalFilteredRows: any[],
   globalFilter: string,
   setGlobalFilter: (filter: string | undefined) => void,
 };
 
-const GlobalFilter = ({
-  preGlobalFilteredRows,
+export const GlobalFilter = ({
   globalFilter,
   setGlobalFilter,
 }: Props) => {
   const classes = useStyles()
-  const count = preGlobalFilteredRows.length
-
-  // Global filter only works with pagination from the first page.
-  // This may not be a problem for server side pagination when
-  // only the current page is downloaded.
 
   return (
     <div className={classes.search}>
       <TextField
-          fullWidth
-          variant="outlined"
+        fullWidth
+        variant="outlined"
         value={globalFilter || ''}
         onChange={e => {
           setGlobalFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
         }}
-        placeholder={`${count} records...`}
-        inputProps={{ 'aria-label': 'search'  }}
-          InputProps={{endAdornment: (
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-            )}}
+        placeholder='Search...'
+        inputProps={{'aria-label': 'search'}}
+        InputProps={{
+          endAdornment: (
+            <IconButton>
+              <SearchIcon />
+            </IconButton>
+          )
+        }}
       />
     </div>
   )
-}
-
-export default GlobalFilter
+};
