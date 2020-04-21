@@ -2,6 +2,7 @@ import React from 'react'
 import clsx from 'clsx'
 import { Toolbar, lighten, makeStyles } from '@material-ui/core'
 import { GlobalFilter } from './GlobalFilter'
+import { InfoDialog } from "./InfoDialog";
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -42,6 +43,7 @@ export const TableToolbar = (props: Props) => {
         globalFilter={globalFilter}
         setGlobalFilter={setGlobalFilter}
       />
+      <InfoDialog />
     </Toolbar>
   )
 };
