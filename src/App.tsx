@@ -1,6 +1,6 @@
 import React from 'react'
 import { CssBaseline, Tooltip } from '@material-ui/core'
-import { Column } from "react-table";
+import { CellProps, Column } from "react-table";
 import { EnhancedTable, Point } from './components/EnhancedTable'
 import data from './results.json';
 
@@ -46,6 +46,11 @@ const App = () => {
       <EnhancedTable
         columns={columns}
         data={data}
+        getCellProps={(cellInfo: CellProps<Point>) => ({
+          style: {
+            fontWeight: cellInfo.row.original.country === 'United States' ? 'bold' : 'normal'
+          },
+        })}
       />
     </div>
   )

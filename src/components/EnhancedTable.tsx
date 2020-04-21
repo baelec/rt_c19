@@ -16,6 +16,7 @@ import {
   UseGlobalFiltersInstanceProps,
   UseGlobalFiltersState,
   TableInstance,
+  CellProps,
 } from 'react-table'
 import { TableToolbar } from './TableToolbar'
 
@@ -29,13 +30,15 @@ export type Point = {
 };
 
 type Props = {
-  columns: Column<Point>[],
-  data: Point[],
+  columns: Column<Point>[];
+  data: Point[];
+  getCellProps: (cell: CellProps<any, Point>) => {};
 };
 
 export const EnhancedTable = ({
   columns,
   data,
+  getCellProps,
 }: Props) => {
   const {
     getTableProps,
@@ -70,9 +73,8 @@ export const EnhancedTable = ({
             <TableRow {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column: any) => (
                 <TableCell
-                  {...(column.id === 'selection'
-                    ? column.getHeaderProps()
-                    : column.getHeaderProps({...column.getSortByToggleProps(), title: undefined}))}
+                  key={column.id}
+                  {...column.getHeaderProps({...column.getSortByToggleProps(), title: undefined})}
                 >
                   <div style={{display: 'inline-flex'}}>
                     {column.render('Header')}
@@ -94,13 +96,11 @@ export const EnhancedTable = ({
             prepareRow(row)
             return (
               <TableRow {...row.getRowProps()}>
-                {row.cells.map(cell => {
-                  return (
-                    <TableCell {...cell.getCellProps()}>
-                      {cell.render('Cell')}
-                    </TableCell>
-                  )
-                })}
+                {row.cells.map(cell => (
+                  <TableCell {...cell.getCellProps()} {...getCellProps(cell as any)}>
+                    {cell.render('Cell')}
+                  </TableCell>)
+                )}
               </TableRow>
             )
           })}
